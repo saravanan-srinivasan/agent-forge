@@ -45,7 +45,11 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 
-workflow_store = WorkflowStore(Path(__file__).parent / "data" / "workflows.json")
+# Ensure data directory exists
+data_dir = Path(__file__).parent / "data"
+data_dir.mkdir(parents=True, exist_ok=True)
+
+workflow_store = WorkflowStore(data_dir / "workflows.json")
 
 
 @asynccontextmanager
