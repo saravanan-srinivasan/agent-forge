@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+
+:root {
+  /* core palette — industrial blueprint */
+  --bg-deep:     #0a0a0c;
+  --bg-base:     #0e0e11;
+  --bg-elev-1:   #14141a;
+  --bg-elev-2:   #1a1a22;
+  --bg-elev-3:   #22222d;
+
+  --line-faint:  rgba(255,255,255,0.04);
+  --line-soft:   rgba(255,255,255,0.07);
+  --line-mid:    rgba(255,255,255,0.12);
+  --line-hard:   rgba(255,255,255,0.18);
+
+  --ink-mute:    rgba(255,255,255,0.40);
+  --ink-soft:    rgba(255,255,255,0.55);
+  --ink:         rgba(255,255,255,0.78);
+  --ink-bright:  rgba(255,255,255,0.92);
+
+  /* agent identity colors — distinct, not on brand spectrum of nova */
+  --planner:     #fbbf24;     /* amber */
+  --planner-rgb: 251, 191, 36;
+  --researcher:     #4ade80;  /* terminal green */
+  --researcher-rgb: 74, 222, 128;
+  --analyst:        #60a5fa;  /* steel blue */
+  --analyst-rgb:    96, 165, 250;
+
+  --signal:      #fbbf24;     /* amber primary */
+  --signal-rgb:  251, 191, 36;
+  --warn:        #f97316;
+  --error:       #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg-deep);
+  color: var(--ink);
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Blueprint grid background — subtle, not distracting */
+.blueprint-grid {
+  background-color: var(--bg-deep);
+  background-image:
+    linear-gradient(rgba(251, 191, 36, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 191, 36, 0.025) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* Animations */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+@keyframes sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fade-in 0.3s ease-out; }
+
+@keyframes slide-from-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-from-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-from-bottom {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flow-pulse {
+  0% { stroke-dashoffset: 24; opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.3; }
+}
+
+@keyframes message-arrive {
+  0% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  50% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes scanline {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, var(--ink-mute) 0%, var(--ink-bright) 50%, var(--ink-mute) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2.4s linear infinite;
+}
+
+/* Reusable */
+button, input, textarea, select {
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+}
+button { cursor: pointer; transition: all 0.18s ease; }
+button:disabled { cursor: not-allowed; opacity: 0.4; }
+
+textarea, input { caret-color: var(--signal); }
+textarea:focus, input:focus, select:focus { outline: none; }
+
+/* Mono utilities */
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: "ss01", "ss02"; }
+.label-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 500;
+}
+.serif-display {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+/* Panel — the basic surface */
+.panel {
+  background: var(--bg-base);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  position: relative;
+}
+.panel-elev {
+  background: var(--bg-elev-1);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+}
+
+/* Corner brackets — engineering blueprint aesthetic */
+.bracket {
+  position: relative;
+}
+.bracket::before, .bracket::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--signal);
+  pointer-events: none;
+}
+.bracket::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Hover lift */
+.hover-lift { transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease; }
+.hover-lift:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: var(--line-hard);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line-soft); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--line-mid); }
+
+/* Inline kbd */
+kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--line-mid);
+  background: var(--bg-elev-2);
+  color: var(--ink-soft);
+}
+
+/* Selection */
+::selection { background: rgba(251, 191, 36, 0.25); color: white; }
+
+/* Focusable accessible style */
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 1px solid var(--signal);
+  outline-offset: 2px;
+}
+
+/* Mobile-first responsive helpers */
+@media (max-width: 768px) {
+  .blueprint-grid {
+    background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+  }
+  .hide-mobile { display: none !important; }
+}
+@media (min-width: 769px) {
+  .show-only-mobile { display: none !important; }
+}
+
+/* Prevent ios safari zoom */
+@supports (-webkit-touch-callout: none) {
+  textarea, input, select { font-size: 16px; }
+}

@@ -1,0 +1,13 @@
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+httpx==0.27.2
+pydantic==2.9.2
+python-dotenv==1.0.1
+
+# Multi-agent frameworks
+crewai==0.86.0
+pyautogen==0.4.0
+
+# LLM provider — Groq via OpenAI-compatible API
+openai==1.54.0
+litellm==1.52.0
