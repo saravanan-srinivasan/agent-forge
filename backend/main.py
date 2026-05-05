@@ -54,9 +54,15 @@ workflow_store = WorkflowStore(data_dir / "workflows.json")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    workflow_store.load()
+    try:
+        workflow_store.load()
+    except Exception as e:
+        print(f"Warning: Failed to load workflows: {e}")
     yield
-    workflow_store.save()
+    try:
+        workflow_store.save()
+    except Exception as e:
+        print(f"Warning: Failed to save workflows: {e}")
 
 
 app = FastAPI(
