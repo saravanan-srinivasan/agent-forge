@@ -6,12 +6,11 @@ services:
     rootDir: backend
     buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
     startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    pythonVersion: 3.13.0
     envVars:
       - key: GROQ_API_KEY
         sync: false
       - key: GROQ_MODEL
         value: llama-3.3-70b-versatile
-      - key: PYTHON_VERSION
-        value: 3.11.9
       - key: ALLOWED_ORIGINS
         value: "*"
